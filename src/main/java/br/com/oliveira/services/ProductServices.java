@@ -7,39 +7,38 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.oliveira.models.Person;
-import br.com.oliveira.repositories.PersonRepository;
+import br.com.oliveira.models.Products;
+import br.com.oliveira.repositories.ProductRepository;
 
 @Service
-public class PersonServices {
+public class ProductServices {
 	
 	@Autowired
-	PersonRepository repository;
+	ProductRepository repository;
 	
-	public List<Person> findAll(){
+	public List<Products> findAll(){
 		
 		return repository.findAll();
 	}
 	
-	public Person findById(Long id) {
+	public Products findById(Long id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi encontrado o id informado!"));
 	}
 	
-	public Person create(Person person) {
-		person.setId(null);
-		return repository.save(person);
+	public Products create(Products products) {
+		products.setId(null);
+		return repository.save(products);
 	}
 	
-	public Person update(Person person) {
-		var entity = repository.findById(person.getId())
+	public Products update(Products products) {
+		var entity = repository.findById(products.getId())
 				.orElseThrow();
 		
-		entity.setFirstName(person.getFirstName());
-		entity.setLastName(person.getLastName());
-		entity.setGender(person.getGender());
+		entity.setName(products.getName());
+		entity.setQtd(products.getQtd());
 		
-		return repository.save(person);
+		return repository.save(products);
 	}
 	
 	public void delete(Long id) {

@@ -14,43 +14,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.oliveira.models.Person;
-import br.com.oliveira.repositories.PersonRepository;
-import br.com.oliveira.services.PersonServices;
+import br.com.oliveira.models.Book;
+import br.com.oliveira.repositories.BookRepository;
+import br.com.oliveira.services.BookServices;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/book")
+public class BookController {
 
-    private final PersonRepository personRepository;
+    private final BookRepository bookRepository;
 
 	@Autowired
-	private PersonServices service;
+	private BookServices service;
 
-    PersonController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> findAll(){
+	public List<Book> findAll(){
 		return service.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Person findById(@PathVariable(value = "id") Long id) {
+	public Book findById(@PathVariable(value = "id") Long id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person create(@RequestBody Person person) {
-		return service.create(person);
+	public Book create(@RequestBody Book book) {
+		return service.create(book);
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person update(@RequestBody Person person) {
-		return service.update(person);
+	public Book update(@RequestBody Book book) {
+		return service.update(book);
 	}
 	
 	@DeleteMapping(value = "/{id}")

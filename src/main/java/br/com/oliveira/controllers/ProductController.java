@@ -14,43 +14,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.oliveira.models.Person;
-import br.com.oliveira.repositories.PersonRepository;
-import br.com.oliveira.services.PersonServices;
+import br.com.oliveira.models.Products;
+import br.com.oliveira.repositories.ProductRepository;
+import br.com.oliveira.services.ProductServices;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/products")
+public class ProductController {
 
-    private final PersonRepository personRepository;
+    private final ProductRepository productsRepository;
 
 	@Autowired
-	private PersonServices service;
+	private ProductServices service;
 
-    PersonController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    ProductController(ProductRepository productsRepository) {
+        this.productsRepository = productsRepository;
     }
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> findAll(){
+	public List<Products> findAll(){
 		return service.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Person findById(@PathVariable(value = "id") Long id) {
+	public Products findById(@PathVariable(value = "id") Long id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person create(@RequestBody Person person) {
-		return service.create(person);
+	public Products create(@RequestBody Products products) {
+		return service.create(products);
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person update(@RequestBody Person person) {
-		return service.update(person);
+	public Products update(@RequestBody Products products) {
+		return service.update(products);
 	}
 	
 	@DeleteMapping(value = "/{id}")

@@ -7,39 +7,39 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.oliveira.models.Person;
-import br.com.oliveira.repositories.PersonRepository;
+import br.com.oliveira.models.Book;
+import br.com.oliveira.repositories.BookRepository;
 
 @Service
-public class PersonServices {
+public class BookServices {
 	
 	@Autowired
-	PersonRepository repository;
+	BookRepository repository;
 	
-	public List<Person> findAll(){
+	public List<Book> findAll(){
 		
 		return repository.findAll();
 	}
 	
-	public Person findById(Long id) {
+	public Book findById(Long id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi encontrado o id informado!"));
 	}
 	
-	public Person create(Person person) {
-		person.setId(null);
-		return repository.save(person);
+	public Book create(Book book) {
+		book.setId(null);
+		return repository.save(book);
 	}
 	
-	public Person update(Person person) {
-		var entity = repository.findById(person.getId())
+	public Book update(Book book) {
+		var entity = repository.findById(book.getId())
 				.orElseThrow();
 		
-		entity.setFirstName(person.getFirstName());
-		entity.setLastName(person.getLastName());
-		entity.setGender(person.getGender());
+		entity.setAuthor(book.getAuthor());
+		entity.setTitle(book.getTitle());
+		entity.setPages(book.getPages());
 		
-		return repository.save(person);
+		return repository.save(book);
 	}
 	
 	public void delete(Long id) {
